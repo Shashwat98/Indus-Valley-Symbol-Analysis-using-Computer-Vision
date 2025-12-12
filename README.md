@@ -1,85 +1,85 @@
 
-indus-valley/
-│
-├── README.md
-│
-├── indus-valley/                         # Phase 1 – Caption extraction & tablet cropping
-│   ├── build_captions_table.py
-│   ├── crop_tablets.py
-│   └── requirements.txt
-│
-├── indus-valley-phase-2-preprocessing/   # Phase 2 – Image preprocessing & symbol candidates
-│   ├── image_preprocessing.py
-│   └── data/
-│       ├── tablets_raw/                  # Phase 1 output (copied/linked)
-│       └── preprocessed/
-│           ├── gray/
-│           ├── clahe/
-│           ├── edge/
-│           ├── binary/
-│           ├── clean/
-│           ├── skeleton/
-│           └── symbols/
-│
-├── indus-valley-phase-3-segmentation/    # Phase 3 – Symbol segmentation & metadata
-│   ├── segmentation.py
-│   ├── data/
-│   │   ├── cropped/                      # Original tablet crops
-│   │   └── clean/                        # Clean binary images
-│   └── output/
-│       ├── symbols/                      # 64×64 normalized symbol crops
-│       ├── overlays/                     # Debug visualizations
-│       ├── metadata/                     # Per-seal JSON metadata
-│       └── animals/
-│
-├── indus-valley-phase-4-feature-extraction/  # Phase 4 – Features & clustering
-│   ├── src/
-│   │   ├── config.py
-│   │   ├── views.py
-│   │   ├── features.py
-│   │   ├── index_symbols.py
-│   │   ├── run_extract_features.py
-│   │   ├── run_extract_features_rich.py
-│   │   ├── prepare_features.py
-│   │   ├── prepare_features_rich.py
-│   │   ├── run_kmeans.py
-│   │   └── run_kmeans_rich.py
-│   │
-│   ├── data/
-│   │   ├── metadata/                     # Phase 3 JSON metadata
-│   │   └── seals_phase1/
-│   │       ├── gray/
-│   │       ├── clahe/
-│   │       ├── edge/
-│   │       ├── binary/
-│   │       ├── clean/
-│   │       └── skeleton/
-│   │
-│   └── outputs/
-│       ├── features/
-│       ├── clusters/
-│       └── viz/
-│
-├── colab/                                # Google Colab experiments
-│   └── vit_dinov2_analysis.ipynb
-│
-└── docs/
-    ├── figures/                          # Paper figures
-    ├── tables/                           # CSVs for plots
-    └── report/                           # CVPR/IEEE paper draft
+indus-valley/ \
+│ \
+├── README.md \
+│ \
+├── indus-valley/                         # Phase 1 – Caption extraction & tablet cropping \
+│   ├── build_captions_table.py \
+│   ├── crop_tablets.py \
+│   └── requirements.txt \
+│ \
+├── indus-valley-phase-2-preprocessing/   # Phase 2 – Image preprocessing & symbol candidates \
+│   ├── image_preprocessing.py \
+│   └── data/ \
+│       ├── tablets_raw/                  # Phase 1 output (copied/linked) \
+│       └── preprocessed/ \
+│           ├── gray/ \
+│           ├── clahe/ \
+│           ├── edge/ \
+│           ├── binary/ \
+│           ├── clean/ \
+│           ├── skeleton/ \
+│           └── symbols/ \
+│ \
+├── indus-valley-phase-3-segmentation/    # Phase 3 – Symbol segmentation & metadata \
+│   ├── segmentation.py \
+│   ├── data/ \
+│   │   ├── cropped/                      # Original tablet crops \
+│   │   └── clean/                        # Clean binary images \
+│   └── output/ \
+│       ├── symbols/                      # 64×64 normalized symbol crops \
+│       ├── overlays/                     # Debug visualizations \
+│       ├── metadata/                     # Per-seal JSON metadata \
+│       └── animals/ \
+│ \
+├── indus-valley-phase-4-feature-extraction/  # Phase 4 – Features & clustering \
+│   ├── src/ \
+│   │   ├── config.py \
+│   │   ├── views.py \
+│   │   ├── features.py \
+│   │   ├── index_symbols.py \
+│   │   ├── run_extract_features.py \
+│   │   ├── run_extract_features_rich.py \
+│   │   ├── prepare_features.py \
+│   │   ├── prepare_features_rich.py \
+│   │   ├── run_kmeans.py \
+│   │   └── run_kmeans_rich.py \
+│   │ \
+│   ├── data/ \
+│   │   ├── metadata/                     # Phase 3 JSON metadata \
+│   │   └── seals_phase1/ \
+│   │       ├── gray/ \
+│   │       ├── clahe/ \
+│   │       ├── edge/ \
+│   │       ├── binary/ \
+│   │       ├── clean/ \
+│   │       └── skeleton/ \
+│   │ \
+│   └── outputs/ \
+│       ├── features/ \
+│       ├── clusters/ \
+│       └── viz/ \
+│ \
+├── colab/                                # Google Colab experiments \
+│   └── vit_dinov2_analysis.ipynb \
+│ \
+└── docs/ \
+    ├── figures/                          # Paper figures \
+    ├── tables/                           # CSVs for plots \
+    └── report/ \
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 Dependencies
-pytesseract
-pdf2image
-pillow
-pandas
-numpy
-opencv-python
-scikit-image
-tqdm
+pytesseract \
+pdf2image \
+pillow \
+pandas \
+numpy \
+opencv-python \
+scikit-image \
+tqdm 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -94,39 +94,39 @@ This phase converts a scanned PDF of Indus plates into:
 --------------------------------------------------------------------------
 
 
-Step 1: Build Caption Table from Scanned PDF
+Step 1: Build Caption Table from Scanned PDF 
 
 Script: build_captions_table.py 
 
-**Purpose
+**Purpose 
 
-1.Converts a scanned PDF into page images
-2.Runs OCR (Tesseract) on each page
-3.Detects caption codes (e.g., A-123, M-67 A (1) bis)
-4.Saves all detected captions with bounding box metadata into a CSV
+1.Converts a scanned PDF into page images \
+2.Runs OCR (Tesseract) on each page \
+3.Detects caption codes (e.g., A-123, M-67 A (1) bis) \
+4.Saves all detected captions with bounding box metadata into a CSV \
 
-**Command to Run
-python build_captions_table.py <path_to_pdf> --out_dir <output_dir> --dpi 300
+**Command to Run \
+python build_captions_table.py <path_to_pdf> --out_dir <output_dir> --dpi 300 
 
 Example
 python build_captions_table.py data/CorpusVol1.pdf --out_dir phase1_output --dpi 300
 
 **Inputs
 
-path_to_pdf: Scanned PDF of plates (DJVU-converted or scanned book)
---dpi: DPI for PDF → image conversion (300–400 recommended)
+path_to_pdf: Scanned PDF of plates (DJVU-converted or scanned book) \
+--dpi: DPI for PDF → image conversion (300–400 recommended) 
 
 **Input File Location (Expected)
 data/
  └── CorpusVol1.pdf
 
 **Outputs
-phase1_output/
- ├── captions.csv
- └── pages_as_images/
-     ├── page_001.png
-     ├── page_002.png
-     ├── ...
+phase1_output/ \
+ ├── captions.csv \
+ └── pages_as_images/ \
+     ├── page_001.png \
+     ├── page_002.png \
+     ├── ... 
 
 **captions.csv Columns (Key)
 
@@ -177,21 +177,21 @@ pages_dir:	Directory containing page_XXX.png
 --debug_dir:	(Optional) Saves overlay images
 
 Input Directory Structure (Required)
-phase1_output/
- ├── captions.csv
- └── pages_as_images/
-     ├── page_001.png
-     ├── page_002.png
+phase1_output/ \
+ ├── captions.csv \
+ └── pages_as_images/ \
+     ├── page_001.png \
+     ├── page_002.png \
      ├── ...
 
 Outputs
-phase1_output/
- ├── cropped_tablets/
- │   ├── page003_M-13_A_c0.png
- │   ├── page003_M-13_A_c1.png
- │   └── ...
- └── debug_pages/          (if enabled)
-     ├── page_003_debug.png
+phase1_output/ \
+ ├── cropped_tablets/ \
+ │   ├── page003_M-13_A_c0.png \
+ │   ├── page003_M-13_A_c1.png \
+ │   └── ... \
+ └── debug_pages/          (if enabled) \
+     ├── page_003_debug.png \
      └── ...
 
 Cropped Image Naming
@@ -257,9 +257,9 @@ Supported extensions: png, jpg, jpeg, tif, tiff, bmp.
 
 Copy the Phase 1 cropped tablet images into:
 
-data/tablets_raw/
-  page003_M-13_A_c0.png
-  page003_M-13_A_c1.png
+data/tablets_raw/ \
+  page003_M-13_A_c0.png \
+  page003_M-13_A_c1.png \
   ...
 
 (Your Phase 1 output folder can be different, but for this Phase 2 script to work as-is, the files must be placed in data/tablets_raw/.) 
@@ -269,14 +269,14 @@ data/tablets_raw/
 
 All outputs are written under:
 
-data/preprocessed/
- ├── gray/
- ├── clahe/
- ├── edge/
- ├── binary/
- ├── clean/
- ├── skeleton/
- └── symbols/
+data/preprocessed/ \
+ ├── gray/ \
+ ├── clahe/ \
+ ├── edge/ \
+ ├── binary/ \
+ ├── clean/ \
+ ├── skeleton/ \
+ └── symbols/ \
 
 Output Files Produced (per input image)
 
@@ -351,14 +351,14 @@ python segmentation.py
 **Inputs
 
 Required Input Folders
-<phase-3-segmentation>/
- ├── segmentation.py
- └── data/
-     ├── cropped/
-     │   ├── <seal_id>.png
-     │   └── ...
-     └── clean/
-         ├── <seal_id>_clean.png
+<phase-3-segmentation>/ \
+ ├── segmentation.py \
+ └── data/ \
+     ├── cropped/ \
+     │   ├── <seal_id>.png \
+     │   └── ... \
+     └── clean/ \
+         ├── <seal_id>_clean.png \
          └── ...
 
 Outputs
@@ -369,11 +369,11 @@ All outputs go to:
 
 Created automatically: 
 
-output/
- ├── overlays/
- ├── symbols/
- ├── animals/      (directory created, not populated by this script yet)
- └── metadata/
+output/ \
+ ├── overlays/ \
+ ├── symbols/ \
+ ├── animals/      (directory created, not populated by this script yet) \
+ └── metadata/ 
 
 output/symbols/<seal_id>_sym_###.png
 
@@ -393,9 +393,9 @@ list of symbol entries with bboxes (clean + orig) and saved crop path
 Phase 3 Run Order
 1) Ensure Phase 1 produced cropped images (original crops)
 2) Ensure Phase 2 produced clean images (<seal_id>_clean.png)
-3) Copy/link them into Phase 3 folders:
-   - data/cropped/
-   - data/clean/
+3) Copy/link them into Phase 3 folders: 
+   - data/cropped/ 
+   - data/clean/ 
 4) Run: python segmentation.py
 5) Verify:
    - output/overlays/*_symbols.png
