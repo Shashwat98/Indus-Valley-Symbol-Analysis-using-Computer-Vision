@@ -98,7 +98,7 @@ Step 1: Build Caption Table from Scanned PDF
 
 Script: build_captions_table.py 
 
-**Purpose 
+**Purpose** 
 
 1.Converts a scanned PDF into page images \
 2.Runs OCR (Tesseract) on each page \
