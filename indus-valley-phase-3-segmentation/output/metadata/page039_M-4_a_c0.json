@@ -1,0 +1,24 @@
+{
+  "seal_id": "page039_M-4_a_c0",
+  "source_image": "data\\cropped\\page039_M-4_a_c0.png",
+  "clean_image": "data\\clean\\page039_M-4_a_c0_clean.png",
+  "image_size_orig": [
+    1135,
+    1126
+  ],
+  "image_size_clean": [
+    768,
+    759
+  ],
+  "text_band": [
+    63,
+    63
+  ],
+  "animal_bbox_clean": [
+    21,
+    40,
+    761,
+    759
+  ],
+  "symbols": []
+}

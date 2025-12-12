@@ -1,0 +1,42 @@
+{
+  "seal_id": "page039_M-4_B_c0",
+  "source_image": "data\\cropped\\page039_M-4_B_c0.png",
+  "clean_image": "data\\clean\\page039_M-4_B_c0_clean.png",
+  "image_size_orig": [
+    583,
+    566
+  ],
+  "image_size_clean": [
+    568,
+    566
+  ],
+  "text_band": [
+    147,
+    157
+  ],
+  "animal_bbox_clean": [
+    30,
+    60,
+    568,
+    566
+  ],
+  "symbols": [
+    {
+      "symbol_id": "page039_M-4_B_c0_sym_001",
+      "index": 1,
+      "bbox_clean": [
+        91,
+        147,
+        108,
+        165
+      ],
+      "bbox_orig": [
+        93,
+        147,
+        110,
+        165
+      ],
+      "path": "output\\symbols\\page039_M-4_B_c0_sym_001.png"
+    }
+  ]
+}
