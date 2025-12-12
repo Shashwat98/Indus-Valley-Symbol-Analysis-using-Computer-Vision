@@ -429,4 +429,6 @@ Outputs intended for research and analysis
 Author Shashwat Singh 
 Course: Advanced Perception
 
+I would like to point out that ChatGPT was of immense help while formulating the methodology, what would be the best practices to overcome a various challenges that I faced throughout the project, and the code structure.
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
