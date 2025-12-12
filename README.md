@@ -1,3 +1,6 @@
+Powerpoint: https://docs.google.com/presentation/d/13VcAxsmlXFiOYc1bDyohYp6pLs2QslseUz0_fkiM064/edit?usp=sharing
+Video: https://drive.google.com/file/d/1VwqPLZ5SS5pcE1xnCGmUw-6AwNcKjlmb/view?usp=sharing
+
 ##Repository Structure
 
 indus-valley-cv-pipeline/
