@@ -74,14 +74,14 @@ indus-valley/ \
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Dependencies
-- pytesseract			OCR for captions / text
-- pdf2image				Convert scanned PDF pages to images		
-- pillow				Image I/O and manipulation
-- pandas				Metadata tables (CSV)
-- numpy					Numerical processing
-- opencv-python			Image processing & segmentation
-- scikit-image			Filters, skeletons, morphology
-- tqdm 					Progress bars
+- pytesseract			- OCR for captions / text
+- pdf2image				- Convert scanned PDF pages to images		
+- pillow				- Image I/O and manipulation
+- pandas				- Metadata tables (CSV)
+- numpy					- Numerical processing
+- opencv-python			- Image processing & segmentation
+- scikit-image			- Filters, skeletons, morphology
+- tqdm 					- Progress bars
 
 For tesseract and Poppler, you will have to download the package separately.
 https://github.com/tesseract-ocr/tesseract
