@@ -1,4 +1,6 @@
+## Unsupervised Visual Analysis of Indus Script Symbols using Classical Features and Self Supervised Transformers
 
+### Project Preview
 indus-valley/ \
 │ \
 ├── README.md \
@@ -71,19 +73,19 @@ indus-valley/ \
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-Dependencies
-pytesseract \
-pdf2image \
-pillow \
-pandas \
-numpy \
-opencv-python \
-scikit-image \
-tqdm 
+### Dependencies
+- pytesseract \
+- pdf2image \
+- pillow \
+- pandas \
+- numpy \
+- opencv-python \
+- scikit-image \
+- tqdm 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Phase 1: Caption Extraction & Tablet Cropping**
+### Phase 1: Caption Extraction & Tablet Cropping
 
 This phase converts a scanned PDF of Indus plates into:
 
@@ -94,33 +96,35 @@ This phase converts a scanned PDF of Indus plates into:
 --------------------------------------------------------------------------
 
 
-Step 1: Build Caption Table from Scanned PDF 
+**Step 1**: Build Caption Table from Scanned PDF 
 
 Script: build_captions_table.py 
 
-**Purpose** 
+**Purpose**
 
 1.Converts a scanned PDF into page images \
 2.Runs OCR (Tesseract) on each page \
 3.Detects caption codes (e.g., A-123, M-67 A (1) bis) \
 4.Saves all detected captions with bounding box metadata into a CSV \
 
-**Command to Run \
+**Command to Run** \
+```bash
 python build_captions_table.py <path_to_pdf> --out_dir <output_dir> --dpi 300 
 
-Example
+## Example
 python build_captions_table.py data/CorpusVol1.pdf --out_dir phase1_output --dpi 300
+```
 
-**Inputs
+**Inputs**
 
 path_to_pdf: Scanned PDF of plates (DJVU-converted or scanned book) \
 --dpi: DPI for PDF → image conversion (300–400 recommended) 
 
-**Input File Location (Expected)
+**Input File Location (Expected)**
 data/
  └── CorpusVol1.pdf
 
-**Outputs
+**Outputs**
 phase1_output/ \
  ├── captions.csv \
  └── pages_as_images/ \
@@ -128,49 +132,49 @@ phase1_output/ \
      ├── page_002.png \
      ├── ... 
 
-**captions.csv Columns (Key)
+**captions.csv Columns (Key)**
+- Page – page number (1-based)
+- Line_id – OCR line index
+- Caption_index – index within line (0 = left, 1 = right)
+- x, y, w, h – bounding box of caption line
+- x_center – estimated horizontal center of the caption
+- Normalized_code – cleaned caption (e.g., M-13 A, A-55 bis)
 
-page – page number (1-based)
-line_id – OCR line index
-caption_index – index within line (0 = left, 1 = right)
-x, y, w, h – bounding box of caption line
-x_center – estimated horizontal center of the caption
-normalized_code – cleaned caption (e.g., M-13 A, A-55 bis)
-
-**Notes
-
-Handles multiple captions per line
-Normalizes OCR quirks like M 13-A → M-13 A
-Page images are reused in the next step (do not delete)
+**Notes**
+- Handles multiple captions per line
+- Normalizes OCR quirks like M 13-A → M-13 A
+- Page images are reused in the next step (do not delete)
 
 --------------------------------------------------------------------------
 
-Step 2: Crop Tablet Images Using Captions
+**Step 2: Crop Tablet Images Using Captions**
 
 Script: crop_tablets.py 
 
 
-**Purpose
+**Purpose**
 
-Uses caption locations from captions.csv
-Detects large contours (tablets) above captions
-Crops tablet images with padding
+- Uses caption locations from captions.csv
+- Detects large contours (tablets) above captions
+- Crops tablet images with padding
 
-Command to Run
+**Command to Run**
+```bash
 python crop_tablets.py \
   --captions <path_to_captions_csv> \
   --pages_dir <pages_image_dir> \
   --out_dir <output_dir> \
   --debug_dir <optional_debug_dir>
 
-Example
+## Example
 python crop_tablets.py \
   --captions phase1_output/captions.csv \
   --pages_dir phase1_output/pages_as_images \
   --out_dir phase1_output/cropped_tablets \
   --debug_dir phase1_output/debug_pages
+```
 
-Inputs
+**Inputs**
 
 captions.csv:	Output from Step 1
 pages_dir:	Directory containing page_XXX.png
@@ -197,23 +201,21 @@ phase1_output/ \
 Cropped Image Naming
 page{PAGE}_{CAPTION_CODE}_c{INDEX}.png
 
-
-Example:
-
+Example: \
 page014_M-67_A_c0.png
 
-**Cropping Logic (Important for README)
+**Cropping Logic (Important for README)**
 
-Tablets are detected using large dark contours
-Selected tablet must:
-	Horizontally align with caption center
-	Appear above the caption
-	Be within reasonable vertical distance
+- Tablets are detected using large dark contours
+- Selected tablet must:
+  - Horizontally align with caption center
+	- Appear above the caption
+	- Be within reasonable vertical distance
 
 Largest matching contour is selected
 Padding ≈ 2% of page size
 
-**Notes
+**Notes**
 
 Small glyphs/text are ignored using area thresholds
 Pages with no valid contour matches are skipped (warning logged)
@@ -226,32 +228,31 @@ Phase 1 Execution Order (Recommended)
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Phase 2: Image Preprocessing  and  Symbol Crop Extraction
+### Phase 2: Image Preprocessing  and  Symbol Crop Extraction
 
 --------------------------------------------------------------------------
 
 Script: image_preprocessing.py 
 
 
-**Purpose
+**Purpose**
 
 Takes the cropped tablet images from Phase 1 and generates:
+- grayscale / CLAHE versions
+- edge magnitude + edge-binarized images
+- cleaned binary edge maps
+- skeletonized images
+- connected-component symbol crops (glyph fragments, animal parts, etc.)
 
-grayscale / CLAHE versions
-edge magnitude + edge-binarized images
-cleaned binary edge maps
-skeletonized images
-connected-component symbol crops (glyph fragments, animal parts, etc.)
-
-**Command to Run
-
+**Command to Run**
+```bash
 python image_preprocessing.py
+```
 
-**Inputs
-
+**Inputs**
 Required Input Folder
 The script reads images from:
-data/tablets_raw/
+- data/tablets_raw/
 
 Supported extensions: png, jpg, jpeg, tif, tiff, bmp. 
 
@@ -265,7 +266,7 @@ data/tablets_raw/ \
 (Your Phase 1 output folder can be different, but for this Phase 2 script to work as-is, the files must be placed in data/tablets_raw/.) 
 
 
-**Outputs
+**Outputs**
 
 All outputs are written under:
 
@@ -301,18 +302,16 @@ data/preprocessed/symbols/
 
 These are candidate symbol fragments, not guaranteed full glyphs. 
 
+**Processing Details**
 
-
-**Processing Details
-
-Crops off light borders using threshold BORDER_THRESH=240 
-Resizes so max dimension ≤ MAX_SIZE=768 
-Optional CLAHE contrast enhancement (USE_CLAHE=True) 
-Edge detection uses Scharr on denoised image + Otsu thresholding 
-Cleaning uses morphological open/close + removes small CCs
-  MIN_CLEAN_AREA=150 for cleaning 
-  MIN_SYMBOL_AREA=80 for symbol crops 
-Skeletonization uses skimage.morphology.skeletonize 
+- Crops off light borders using threshold BORDER_THRESH=240 
+- Resizes so max dimension ≤ MAX_SIZE=768 
+- Optional CLAHE contrast enhancement (USE_CLAHE=True) 
+- Edge detection uses Scharr on denoised image + Otsu thresholding 
+- Cleaning uses morphological open/close + removes small CCs
+  - MIN_CLEAN_AREA=150 for cleaning 
+  - MIN_SYMBOL_AREA=80 for symbol crops 
+- Skeletonization uses skimage.morphology.skeletonize 
 
 Notes:
 
@@ -324,31 +323,31 @@ Phase 2 Run Order
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-Phase 3: Segmentation (Text Band, Animal Region, Symbol Crops + Metadata)
+### Phase 3: Segmentation (Text Band, Animal Region, Symbol Crops + Metadata)
 
-**Purpose
+**Purpose**
 
-Given:
+**Given:**
 
 the original cropped seal/tablet images
 the corresponding clean binary images (edge-cleaned)
 
-This script:
+**This script:**
 
-runs connected components on the clean binary image
-estimates the text band (where symbols are)
-estimates animal region bbox
-groups components into symbol bounding boxes
-writes:
-    normalized 64×64 symbol crops
-    JSON metadata per seal
-    debug overlays (components + text band + animal bbox + symbol boxes)
+- runs connected components on the clean binary image
+- estimates the text band (where symbols are)
+- estimates animal region bbox
+- groups components into symbol bounding boxes
+- writes:
+  - normalized 64×64 symbol crops
+  - JSON metadata per seal
+  - debug overlays (components + text band + animal bbox + symbol boxes)
 
-**Command to Run
-
+**Command to Run**
+```bash
 python segmentation.py
-
-**Inputs
+```
+**Inputs**
 
 Required Input Folders
 <phase-3-segmentation>/ \
@@ -361,13 +360,13 @@ Required Input Folders
          ├── <seal_id>_clean.png \
          └── ...
 
-Outputs
+**Outputs**
 
 All outputs go to:
 
 <phase-3-segmentation>/output/
 
-Created automatically: 
+**Created automatically:**
 
 output/ \
  ├── overlays/ \
@@ -379,18 +378,17 @@ output/symbols/<seal_id>_sym_###.png
 
 Metadata JSON (per seal)
 
-Saved to:
+**Saved to:**
 output/metadata/<seal_id>.json
 
-Contains:
+**Contains:**
+- seal_id
+- paths to source images
+- text_band (y1,y2 in clean coords)
+- animal_bbox_clean
+- list of symbol entries with bboxes (clean + orig) and saved crop path
 
-seal_id
-paths to source images
-text_band (y1,y2 in clean coords)
-animal_bbox_clean
-list of symbol entries with bboxes (clean + orig) and saved crop path
-
-Phase 3 Run Order
+### Phase 3 Run Order
 1) Ensure Phase 1 produced cropped images (original crops)
 2) Ensure Phase 2 produced clean images (<seal_id>_clean.png)
 3) Copy/link them into Phase 3 folders: 
@@ -404,10 +402,10 @@ Phase 3 Run Order
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-Phase 4: Feature Extraction
+### Phase 4: Feature Extraction
 
-**Run Order
-
+**Run Order**
+```bash
 python -m src.index_symbols
 python -m src.run_extract_features
 python -m src.prepare_features
@@ -415,14 +413,14 @@ python -m src.run_kmeans
 python -m src.run_extract_features_rich
 python -m src.prepare_features_rich
 python -m src.run_kmeans_rich
-
+```
 
 **At last run the Google Collab notebook cell by cell to extract features using DINOv2. You will need to mount google drive with the folder "symbols_64"
-containing the 64x64 symbol crops.
+containing the 64x64 symbol crops.**
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-License & Data Disclaimer
+### License & Data Disclaimer
 
 Code: Academic use only
 Dataset: Rights belong to original publishers
