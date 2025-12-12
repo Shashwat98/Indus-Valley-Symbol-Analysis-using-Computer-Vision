@@ -1,0 +1,5 @@
+Silhouette score (rich, k=40): 0.232974
+Number of clusters: 40
+Total symbols: 5920
+ARI (simple vs rich): 0.302980
+NMI (simple vs rich): 0.586891
