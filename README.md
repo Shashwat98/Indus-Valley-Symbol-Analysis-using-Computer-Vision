@@ -195,3 +195,16 @@ embeddings.npy
 PCA & UMAP visualizations
 Self-attention maps per symbol
 Cluster comparison metrics (ARI, NMI)
+
+
+**License & Data Disclaimer**
+
+Code: Academic use only
+
+Dataset: Rights belong to original publishers
+
+Outputs intended for research and analysis
+
+**Author**
+Shashwat Singh
+Course: Advanced Perception
