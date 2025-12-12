@@ -1,5 +1,11 @@
 ## Unsupervised Visual Analysis of Indus Script Symbols using Classical Features and Self Supervised Transformers
 
+
+Powerpoint: https://docs.google.com/presentation/d/13VcAxsmlXFiOYc1bDyohYp6pLs2QslseUz0_fkiM064/edit?usp=sharing \
+Video: https://drive.google.com/file/d/1VwqPLZ5SS5pcE1xnCGmUw-6AwNcKjlmb/view?usp=sharing
+
+
+
 ### Project Preview
 indus-valley/ \
 │ \
@@ -430,7 +436,7 @@ Dataset: Rights belong to original publishers
 Outputs intended for research and analysis
 
 Author Shashwat Singh 
-Course: Advanced Perception
+Course: Advanced Perception CS-7180
 
 I would like to point out that ChatGPT was of immense help while formulating the methodology, what would be the best practices to overcome a various challenges that I faced throughout the project, and the code structure.
 
